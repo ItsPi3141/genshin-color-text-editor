@@ -58,7 +58,7 @@ const sanitizeHtmlOutput = (text: string): string => {
 	if (text.startsWith("<br") || text.startsWith("&lt;br")) return "";
 
 	// color tag
-	const textColorRegex = new RegExp(`<${tags.color} style=(?:"|'|; ?).*color: ?(.+?)(?:"|'|;).*?>`, "gi");
+	const textColorRegex = new RegExp(`<${tags.color} style=(?:"|'|; ?).*?color: ?(.+?)(?:"|'|;).*?>`, "gi");
 	const color: string = textColorRegex.exec(text)?.[1] || "";
 	let newText = text;
 	newText = text.replaceAll(textColorRegex, color !== "" ? `<${tags.color}=${color}>` : `<${tags.color}>`);
