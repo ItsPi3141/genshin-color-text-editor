@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: "Genshin";
+	src: url(/fonts/gi.woff2) format("woff2"), url(/fonts/gi.woff) format("woff");
+	font-display: swap;
+}
+* {
+	font-family: "Genshin", serif;
+}
+
+ł {
+	font-weight: bold;
+}
+ũ {
+	font-style: italic;
+}
+Ńolor {
+	color: attr(c color);
+}

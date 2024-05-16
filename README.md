@@ -1,0 +1,1 @@
+# Genshin color text editor
