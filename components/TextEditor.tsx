@@ -82,8 +82,8 @@ const TextEditor = ({ onChange }: Readonly<{ onChange: (value: string) => void }
 		editorProps: {
 			attributes: {
 				class: "bg-darker p-4 outline-none",
-				autocomplete: "off",
-				spellcheck: "off",
+				autocomplete: "false",
+				spellcheck: "false",
 			},
 		},
 		onUpdate: () => {
