@@ -10,6 +10,7 @@ const config: Config = {
 				darkest: "#2d3240",
 				light: "#ece5d7",
 				accent: "#d1bc8c",
+				highlight: "#7fb4f0",
 			},
 		},
 	},

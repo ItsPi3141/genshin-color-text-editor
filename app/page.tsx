@@ -1,14 +1,15 @@
 "use client";
 
 import TextEditor from "@/components/TextEditor";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
 	const [result, setResult] = useState("");
 	return (
-		<main className="flex flex-col justify-start items-center gap-8 bg-darkest p-24 min-h-screen text-light">
-			<h1 className="text-3xl">Genshin Color Text Editor</h1>
+		<main className="flex flex-col justify-between items-center gap-8 bg-darkest p-24 pb-8 min-h-screen text-light">
 			<div className="flex flex-col gap-4 w-full max-w-[800px]">
+				<h1 className="mb-8 text-3xl">Genshin Color Text Editor</h1>
 				<p>Edit</p>
 				<TextEditor onChange={(value) => setResult(value)} />
 				<p className="mt-8">Result</p>
@@ -17,6 +18,21 @@ export default function Home() {
 						<p key={null}>{line}</p>
 					))}
 				</div>
+			</div>
+			<div className="flex flex-col gap-4 w-full max-w-[800px]">
+				<center className="text-sm">
+					<p>Text size editing coming soon!</p>
+					<p>
+						Made by{" "}
+						<Link target="_blank" href="https://github.com/ItsPi3141" className="text-highlight">
+							ItsPi3141
+						</Link>
+						. Check out the source code on{" "}
+						<Link target="_blank" href="https://github.com/ItsPi3141/genshin-color-text-editor" className="text-highlight">
+							GitHub
+						</Link>
+					</p>
+				</center>
 			</div>
 		</main>
 	);
