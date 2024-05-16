@@ -10,6 +10,11 @@
 * {
 	font-family: "Genshin", serif;
 }
+[placeholder]:has(p:only-child > br[class^="ProseMirror"])::before {
+	position: absolute;
+	content: attr(placeholder);
+	color: #ece5d788;
+}
 
 ł {
 	font-weight: bold;

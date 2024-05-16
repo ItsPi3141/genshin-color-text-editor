@@ -84,6 +84,7 @@ const TextEditor = ({ onChange }: Readonly<{ onChange: (value: string) => void }
 				class: "bg-darker p-4 outline-none",
 				autocomplete: "false",
 				spellcheck: "false",
+				placeholder: "Enter text here...",
 			},
 		},
 		onUpdate: () => {
