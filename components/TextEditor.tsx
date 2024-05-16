@@ -105,6 +105,12 @@ const TextEditor = ({ onChange }: Readonly<{ onChange: (value: string) => void }
 	const [isItalic, setItalic] = useState(false);
 	const [color, setColor] = useState("");
 
+	const syncProperties = () => {
+		setColor(editor?.getAttributes("textStyle")?.color || "");
+		setBold(editor?.isActive("bold") || false);
+		setItalic(editor?.isActive("italic") || false);
+	};
+
 	return (
 		<div className="flex flex-col border-2 border-accent border-opacity-50 rounded w-full overflow-hidden">
 			<div className="flex gap-1 border-accent bg-dark px-4 py-2 border-b-2 border-opacity-20">
@@ -166,18 +172,7 @@ const TextEditor = ({ onChange }: Readonly<{ onChange: (value: string) => void }
 					Clear color
 				</button>
 			</div>
-			<EditorContent
-				editor={editor}
-				onInput={() => {
-					setColor(editor?.getAttributes("textStyle")?.color || "");
-				}}
-				onClick={() => {
-					setColor(editor?.getAttributes("textStyle")?.color || "");
-				}}
-				onKeyUp={() => {
-					setColor(editor?.getAttributes("textStyle")?.color || "");
-				}}
-			/>
+			<EditorContent editor={editor} onInput={syncProperties} onClick={syncProperties} onKeyUp={syncProperties} />
 		</div>
 	);
 };
