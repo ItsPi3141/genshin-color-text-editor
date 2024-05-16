@@ -26,7 +26,7 @@ const Text = Node.create({
 });
 const Paragraph = _Paragraph.extend({
 	renderHTML: () => {
-		return ["p", { id: "root" }, 0];
+		return ["p", { class: "root" }, 0];
 	},
 });
 const Bold = _Bold.extend({
@@ -54,7 +54,26 @@ const TextStyle = _TextStyle.extend({
 	},
 });
 
-const TextEditor = (): JSX.Element => {
+const unescapeHtmlChars = (text: string): string => {
+	const output = document.createTextNode(text);
+	const p = document.createElement("p");
+	p.appendChild(output);
+	return p.innerHTML;
+};
+
+const sanitizeHtmlOutput = (text: string): string => {
+	if (text.startsWith("<br") || text.startsWith("&lt;br")) return "";
+
+	// color tag
+	const textColorRegex = new RegExp(`<${tags.color} style=(?:"|'|; ?).*color: ?(.+?)(?:"|'|;).*?>`, "gi");
+	const color: string = textColorRegex.exec(text)?.[1] || "";
+	let newText = text;
+	newText = text.replaceAll(textColorRegex, color !== "" ? `<${tags.color}=${color}>` : `<${tags.color}>`);
+	newText = unescapeHtmlChars(newText);
+	return newText;
+};
+
+const TextEditor = ({ onChange }: Readonly<{ onChange: (value: string) => void }>): JSX.Element => {
 	const editor = useEditor({
 		extensions: [
 			Document,
@@ -75,6 +94,18 @@ const TextEditor = (): JSX.Element => {
 				spellcheck: "off",
 			},
 		},
+		onUpdate: () => {
+			onChange(
+				sanitizeHtmlOutput(
+					[...document.querySelectorAll(".root").values()]
+						.map((node) => {
+							if (node.innerHTML.startsWith("<br") || node.innerHTML.startsWith("&lt;br")) return "";
+							return node.innerHTML;
+						})
+						.join("\n") || ""
+				)
+			);
+		},
 	});
 
 	const [isBold, setBold] = useState(false);
@@ -82,7 +113,7 @@ const TextEditor = (): JSX.Element => {
 	const [color, setColor] = useState("");
 
 	return (
-		<div className="flex flex-col border-2 border-accent border-opacity-50 rounded-md w-full overflow-hidden">
+		<div className="flex flex-col border-2 border-accent border-opacity-50 rounded w-full overflow-hidden">
 			<div className="flex gap-1 border-accent bg-dark px-4 py-2 border-b-2 border-opacity-20">
 				<button
 					type="button"
