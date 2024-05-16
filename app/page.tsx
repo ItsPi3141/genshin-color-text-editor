@@ -31,6 +31,7 @@ export default function Home() {
 						<Link target="_blank" href="https://github.com/ItsPi3141/genshin-color-text-editor" className="text-highlight">
 							GitHub
 						</Link>
+						.
 					</p>
 				</center>
 			</div>
