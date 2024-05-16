@@ -54,6 +54,12 @@ const TextStyle = _TextStyle.extend({
 	},
 });
 
+const unescapeHtml = (text: string): string => {
+	const p = document.createElement("textarea");
+	p.innerHTML = text;
+	return p.value;
+};
+
 const sanitizeHtmlOutput = (text: string): string => {
 	if (text.startsWith("<br") || text.startsWith("&lt;br")) return "";
 
@@ -62,6 +68,7 @@ const sanitizeHtmlOutput = (text: string): string => {
 	const color: string = textColorRegex.exec(text)?.[1] || "";
 	let newText = text;
 	newText = text.replaceAll(textColorRegex, color !== "" ? `<${tags.color}=${color}>` : `<${tags.color}>`);
+	newText = unescapeHtml(newText);
 	return newText;
 };
 
